@@ -1,14 +1,13 @@
 import React, { useState, useEffect, Fragment, } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableHighlight } from 'react-native';
 import * as api from '../utils/api';
-import { hidden, bold } from 'ansi-colors';
 
 function ProjectInfo(props) {
     const {itemId} = props
     const [project, setProject] = useState(null);
 
     useEffect(() => {
-        api.get(`https://api.isaax.io/projects/${itemId}`)
+        api.get(`/projects/${itemId}`)
         .then((response) => {
             setProject(response)
         })
@@ -45,7 +44,7 @@ function ClusterList({props}) {
     const [clusters, setClusters] = useState([]);
 
     useEffect(() => {
-        api.get(`https://api.isaax.io/clusters?projectId=${itemId}`)
+        api.get(`/clusters?projectId=${itemId}`)
         .then((response) => {
             setClusters(response)
         })

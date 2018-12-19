@@ -7,7 +7,7 @@ function DeviceInfo(props) {
     const [device, setDevice] = useState(null);
 
     useEffect(() => {
-        api.get(`https://api.isaax.io/devices/${itemId}`)
+        api.get(`/devices/${itemId}`)
         .then((response) => {
             setDevice(response)
         })
@@ -29,7 +29,7 @@ function startDevice() {
     const {navigation} = this.props;
     const itemId = navigation.getParam('id');
 
-    api.post(`https://api.isaax.io/devices/${itemId}/start`)
+    api.post(`/devices/${itemId}/start`)
     .then((response) => {
         console.log(response)
     })
@@ -39,7 +39,7 @@ function stopDevice() {
     const {navigation} = this.props;
     const itemId = navigation.getParam('id');
 
-    api.post(`https://api.isaax.io/devices/${itemId}/stop`)
+    api.post(`/devices/${itemId}/stop`)
     .then((response) => {
         console.log(response)
     })

@@ -7,7 +7,7 @@ function ProjectList(props) {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        api.get('https://api.isaax.io/projects')
+        api.get('/projects')
         .then((response) => {
             setProjects(response)
         })

@@ -27,7 +27,7 @@ function ClusterInfo(props) {
     const [cluster, setCluster] = useState(null);
 
     useEffect(() => {
-        api.get(`https://api.isaax.io/clusters/${itemId}`)
+        api.get(`/clusters/${itemId}`)
         .then((response) => {
             setCluster(response)
         })
@@ -52,7 +52,7 @@ function DeviceList({props}) {
     const [devices, setDevices] = useState([]);
     
     useEffect(() => {
-        api.get(`https://api.isaax.io/devices?clusterId=${itemId}`)
+        api.get(`/devices?clusterId=${itemId}`)
         .then((response) => {
             setDevices(response)
         })
@@ -81,7 +81,7 @@ function restartApplication(props) {
     const {navigation} = props;
     const itemId = navigation.getParam('id');
 
-    api.post(`https://api.isaax.io/clusters/${itemId}/reload`)
+    api.post(`/clusters/${itemId}/reload`)
     .then((response) => {
         console.log(response)
     })
