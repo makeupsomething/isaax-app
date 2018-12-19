@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as api from '../utils/api';
 
@@ -13,16 +13,37 @@ function DeviceInfo(props) {
         })
     }, []);
 
-    return (
-        <View style={styles.headerWrapper}>
-            {device ? 
-            (<Text style={styles.header}>
-                {device.label}
-            </Text>) : 
-            (<Text>Loading...</Text>)
-            }
-        </View>
-    )
+    if(device) {
+        return (
+            <Fragment>
+                <View style={styles.detailsHeader}>
+                    <Text style={styles.header}>
+                        {device.label}
+                    </Text>
+                </View>
+                <View style={styles.detailsCard}>
+                    <Text style={styles.label}>Device ID:</Text>
+                    <Text style={styles.info}>{device.id}</Text>
+                    <Text style={styles.label}>Cluster:</Text>
+                    <Text style={styles.info}>{device.cluster.title}</Text>
+                    <Text style={styles.label}>Created At:</Text>
+                    <Text style={styles.info}>{device.createdAt}</Text>
+                    <Text style={styles.label}>Updated At:</Text>
+                    <Text style={styles.info}>{device.updatedAt}</Text>
+                    <Text style={styles.label}>Last Message:</Text>
+                    <Text style={styles.info}>{device.lastMessageAt}</Text>
+                    <Text style={styles.label}>IsaaxD Version:</Text>
+                    <Text style={styles.info}>{device.version}</Text>
+                    <Text style={styles.label}>Interfaces:</Text>
+                    {device.interfaces.map(inter => {
+                        return <Text key={inter.Name} style={styles.info}>{inter.Ip}</Text>
+                    })}
+                </View>
+            </Fragment>
+        )
+    } else {
+        return <Text>Loading...</Text>
+    }
 }
 
 function startDevice() {
@@ -49,7 +70,7 @@ export default function DeviceDetails(props) {
     const {navigation} = props;
     const itemId = navigation.getParam('id');
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.container}>
             <DeviceInfo itemId={itemId} />
             <Button
                 onPress={startDevice}
@@ -67,31 +88,49 @@ export default function DeviceDetails(props) {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#e9ecef',
-      marginBottom: 10,
+        backgroundColor: '#e9ecef',
+        marginBottom: 15,
+        marginLeft: 15,
+        marginRight: 15,
     },
-    headerWrapper: {
-      alignItems: 'center',
-      paddingTop: 10,
-      backgroundColor: '#e9ecef',
+    detailsHeader: {
+        alignItems: 'center',
+        paddingTop: 15,
+        paddingBottom: 15,
+        backgroundColor: '#588c95',
+        marginTop: 15,
     },
     header: {
-      fontSize: 70,
-      color: 'navy'
+        fontSize: 30,
+        color: 'white'
     },
+    detailsCard: {
+        backgroundColor: 'white',
+        padding: 15,
+        padding: 15,
+    },
+    label: {
+        fontWeight: 'bold',
+    },
+    info: {},
     card: {
-      borderTopWidth: 3,
-      backgroundColor: 'white',
-      borderColor: '#355998',
-      marginTop: 10,
-      marginTop: 10,
-      marginLeft: 15,
-      marginRight: 15,
+        borderTopWidth: 3,
+        backgroundColor: 'white',
+        borderColor: '#355998',
+        marginTop: 10,
+        marginTop: 10,
+        marginLeft: 15,
+        marginRight: 15,
     },
     cardText: {
-      fontSize: 30,
-      padding: 30,
-      color: 'navy',
+        fontSize: 30,
+        padding: 30,
+        color: 'navy',
+    },
+    subHeader: {
+        color: 'navy',
+        fontSize: 30,
+        marginTop: 15,
     }
   });
   

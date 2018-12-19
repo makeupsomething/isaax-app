@@ -52,7 +52,7 @@ function ClusterList({props}) {
 
     return (
         <Fragment>
-            <Text>Clusters</Text>
+            <Text style={styles.subHeader}>Clusters</Text>
             <ScrollView>
                 {clusters.map(cluster => {
                     return (
@@ -87,15 +87,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#e9ecef',
-        marginBottom: 10,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
     },
     detailsHeader: {
       alignItems: 'center',
-      paddingTop: 10,
+      paddingTop: 15,
+      paddingBottom: 15,
       backgroundColor: '#97a7c3',
       marginTop: 15,
-      marginLeft: 15,
-      marginRight: 15,
     },
     header: {
       fontSize: 30,
@@ -104,26 +105,24 @@ const styles = StyleSheet.create({
     detailsCard: {
         flex: 1,
         backgroundColor: 'white',
-        marginLeft: 15,
-        marginRight: 15,
         padding: 15,
         padding: 15,
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
     },
     label: {
         fontWeight: 'bold',
     },
     info: {
     },
+    subHeader: {
+        color: 'navy',
+        fontSize: 30,
+        marginTop: 15,
+    },
     card: {
       borderTopWidth: 3,
       backgroundColor: 'white',
       borderColor: '#355998',
-      marginTop: 10,
-      marginTop: 10,
-      marginLeft: 15,
-      marginRight: 15,
+      marginTop: 15,
     },
     cardText: {
       fontSize: 30,

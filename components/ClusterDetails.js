@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as api from '../utils/api';
@@ -33,16 +33,36 @@ function ClusterInfo(props) {
         })
     }, []);
 
-    return (
-        <View style={styles.headerWrapper}>
-            {cluster ? 
-            (<Text style={styles.header}>
-                {cluster.title}
-            </Text>) : 
-            (<Text>Loading...</Text>)
-            }
-        </View>
-    )
+    if(cluster) {
+        return (
+            <Fragment>
+                <View style={styles.detailsHeader}>
+                    <Text style={styles.header}>
+                        {cluster.title}
+                    </Text>
+                </View>
+                <View style={styles.detailsCard}>
+                    <Text style={styles.label}>Cluster ID:</Text>
+                    <Text style={styles.info}>{cluster.id}</Text>
+                    <Text style={styles.label}>Branch:</Text>
+                    <Text style={styles.info}>{cluster.branch}</Text>
+                    <Text style={styles.label}>Revision:</Text>
+                    <Text style={styles.info}>{cluster.revision}</Text>
+                    <Text style={styles.label}>Created On:</Text>
+                    <Text style={styles.info}>{cluster.createdOn}</Text>
+                    <Text style={styles.label}>Updated At:</Text>
+                    <Text style={styles.info}>{cluster.updatedAt}</Text>
+                </View>
+                <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
+                    <View style={styles.button}>
+                        <Text color='white'>Restart Application</Text>
+                    </View>
+                </TouchableHighlight>
+            </Fragment>
+        )
+    } else {
+        return <Text>Loading...</Text>
+    }
 }
 
 function DeviceList({props}) {
@@ -59,21 +79,24 @@ function DeviceList({props}) {
     }, []);
 
     return (
-        <ScrollView style={styles.container}>
-            {devices.list ? devices.list.map(device => {
-                return (
-                <TouchableHighlight
-                    key={device.id}
-                    onPress={() => navigate('DeviceDetails', {id: device.id})}
-                >
-                    <View style={styles.card}>
-                        <Text style={styles.cardText}>{device.label}</Text>
-                        <OnlineIcon lastMessage={device.lastMessage} />
-                    </View>
-                </TouchableHighlight>
-                )
-            }) : null}
-        </ScrollView>
+        <Fragment>
+            <Text style={styles.subHeader}>Devices</Text>
+            <ScrollView>
+                {devices.list ? devices.list.map(device => {
+                    return (
+                    <TouchableHighlight
+                        key={device.id}
+                        onPress={() => navigate('DeviceDetails', {id: device.id})}
+                    >
+                        <View style={styles.card}>
+                            <Text style={styles.cardText}>{device.label}</Text>
+                            <OnlineIcon lastMessage={device.lastMessage} />
+                        </View>
+                    </TouchableHighlight>
+                    )
+                }) : null}
+            </ScrollView>
+        </Fragment>
     )
 }
 
@@ -91,13 +114,8 @@ export default function ClusterDetails(props) {
     const {navigation} = props;
     const itemId = navigation.getParam('id');
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.container}>
             <ClusterInfo itemId={itemId} />
-            <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
-                <View style={styles.button}>
-                    <Text color='white'>Restart Application</Text>
-                </View>
-            </TouchableHighlight>
             <DeviceList props={props} />
         </View>
         );
@@ -105,18 +123,33 @@ export default function ClusterDetails(props) {
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: '#e9ecef',
-      marginBottom: 10,
+        flex: 1,
+        backgroundColor: '#e9ecef',
+        marginBottom: 15,
+        marginLeft: 15,
+        marginRight: 15,
     },
-    headerWrapper: {
-      alignItems: 'center',
-      paddingTop: 10,
-      backgroundColor: '#e9ecef',
-    },
-    header: {
-      fontSize: 70,
-      color: 'navy'
-    },
+    detailsHeader: {
+        alignItems: 'center',
+        paddingTop: 15,
+        paddingBottom: 15,
+        backgroundColor: '#355998',
+        marginTop: 15,
+      },
+      header: {
+        fontSize: 30,
+        color: 'white'
+      },
+      detailsCard: {
+          backgroundColor: 'white',
+          padding: 15,
+          padding: 15,
+      },
+      label: {
+          fontWeight: 'bold',
+      },
+      info: {
+      },
     card: {
         flex: 1,
         flexDirection: 'row',
@@ -125,10 +158,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 3,
         backgroundColor: 'white',
         borderColor: '#588c95',
-        marginTop: 10,
-        marginTop: 10,
-        marginLeft: 15,
-        marginRight: 15,
+        marginTop: 15,
     },
     cardText: {
       fontSize: 30,
@@ -136,17 +166,19 @@ const styles = StyleSheet.create({
       color: 'navy',
     },
     buttonView: {
-        backgroundColor: '#e9ecef',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: 'white',
     },
     button: {
-        alignItems: 'center',
         backgroundColor: 'teal',
         padding: 15,
     },
     icon: {
         padding: 30,
+    },
+    subHeader: {
+        color: 'navy',
+        fontSize: 30,
+        marginTop: 15,
     }
   });
   
