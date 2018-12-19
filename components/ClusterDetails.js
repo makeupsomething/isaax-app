@@ -2,19 +2,13 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as api from '../utils/api';
-
-
+import dayjs from 'dayjs'
 
 function OnlineIcon(props) {
-    const lastMessage = props.lastMessage
-    var date1 = new Date(lastMessage);
-    var date2 = new Date();
-    var dif = date2.getTime() - date1.getTime(); 
-    console.log(date1.getTime())
-    console.log(date2.getTime())
-    var Seconds_from_T1_to_T2 = dif / 1000;
-    var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
-    if(Seconds_Between_Dates < 100) { 
+    const {lastMessage} = props
+    const date1 = dayjs(lastMessage);
+    const date2 = dayjs();
+    if(date1.diff(date2, 'second') < 100) { 
         return <Ionicons name='ios-checkmark-circle-outline' style={styles.icon} color='green' size={20}/>
     } else {
         return <Ionicons name='ios-close-circle-outline' style={styles.icon} color='red' size={20}/>
@@ -48,10 +42,10 @@ function ClusterInfo(props) {
                     <Text style={styles.info}>{cluster.branch}</Text>
                     <Text style={styles.label}>Revision:</Text>
                     <Text style={styles.info}>{cluster.revision}</Text>
-                    <Text style={styles.label}>Created On:</Text>
-                    <Text style={styles.info}>{cluster.createdOn}</Text>
+                    <Text style={styles.label}>Created At:</Text>
+                    <Text style={styles.info}>{dayjs(cluster.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                     <Text style={styles.label}>Updated At:</Text>
-                    <Text style={styles.info}>{cluster.updatedAt}</Text>
+                    <Text style={styles.info}>{dayjs(cluster.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                 </View>
                 <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
                     <View style={styles.button}>

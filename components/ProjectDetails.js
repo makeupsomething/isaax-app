@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment, } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableHighlight } from 'react-native';
 import * as api from '../utils/api';
+import dayjs from 'dayjs'
 
 function ProjectInfo(props) {
     const {itemId} = props
@@ -13,24 +14,25 @@ function ProjectInfo(props) {
         })
     }, []);
 
+    
     if(project) {
-    return (
-        <Fragment>
-            <View style={styles.detailsHeader}> 
-                <Text style={styles.header}>
-                    {project.name}
-                </Text>
-            </View>
-            <View style={styles.detailsCard}>
-                <Text style={styles.label}>Project ID:</Text>
-                <Text style={styles.info}>{project.id}</Text>
-                <Text style={styles.label}>Created At:</Text>
-                <Text style={styles.info}>{project.createdAt}</Text>
-                <Text style={styles.label}>Repo Path::</Text>
-                <Text style={styles.info}>{project.repoPath}</Text>
-            </View>
-        </Fragment>
-    )
+        return (
+            <Fragment>
+                <View style={styles.detailsHeader}> 
+                    <Text style={styles.header}>
+                        {project.name}
+                    </Text>
+                </View>
+                <View style={styles.detailsCard}>
+                    <Text style={styles.label}>Project ID:</Text>
+                    <Text style={styles.info}>{project.id}</Text>
+                    <Text style={styles.label}>Created At:</Text>
+                    <Text style={styles.info}>{dayjs(project.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
+                    <Text style={styles.label}>Repo Path::</Text>
+                    <Text style={styles.info}>{project.repoPath}</Text>
+                </View>
+            </Fragment>
+        )
     } else {
         return <Text>Loading...</Text>
     }

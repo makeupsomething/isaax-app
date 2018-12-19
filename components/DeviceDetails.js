@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as api from '../utils/api';
+import dayjs from 'dayjs'
 
 function DeviceInfo(props) {
     const {itemId} = props
@@ -27,11 +28,11 @@ function DeviceInfo(props) {
                     <Text style={styles.label}>Cluster:</Text>
                     <Text style={styles.info}>{device.cluster.title}</Text>
                     <Text style={styles.label}>Created At:</Text>
-                    <Text style={styles.info}>{device.createdAt}</Text>
+                    <Text style={styles.info}>{dayjs(device.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                     <Text style={styles.label}>Updated At:</Text>
-                    <Text style={styles.info}>{device.updatedAt}</Text>
+                    <Text style={styles.info}>{dayjs(device.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                     <Text style={styles.label}>Last Message:</Text>
-                    <Text style={styles.info}>{device.lastMessageAt}</Text>
+                    <Text style={styles.info}>{dayjs(device.lastMessageAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                     <Text style={styles.label}>IsaaxD Version:</Text>
                     <Text style={styles.info}>{device.version}</Text>
                     <Text style={styles.label}>Interfaces:</Text>
