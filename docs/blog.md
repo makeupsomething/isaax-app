@@ -17,6 +17,8 @@ Hooks are a new upcoming feature in react that in theory solve a lot of problems
 
 Stop
 
+![isaaxd log when stopping application](./images/stop.png)
+
 Start
 
-Restart
+![isaaxd log when starting application](./images/start.png)
