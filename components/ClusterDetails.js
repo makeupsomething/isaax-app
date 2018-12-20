@@ -9,11 +9,9 @@ function OnlineIcon(props) {
     const date1 = dayjs(lastMessage);
     const date2 = dayjs();
     if(date2.diff(date1, 'second') < 100) { 
-        return <Text style={styles.icon}>Online</Text>
-        // return <Ionicons name='ios-checkmark-circle-outline' style={styles.icon} color='green' size={20}/>
+        return <Text style={styles.statusOn}>Online</Text>
     } else {
-        return <Text style={styles.icon}>Offline</Text>
-        // return <Ionicons name='ios-close-circle-outline' style={styles.icon} color='red' size={20}/>
+        return <Text style={styles.statusOff}>Offline</Text>
     }
 
 }
@@ -170,7 +168,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'teal',
         padding: 15,
     },
-    icon: {
+    statusOn: {
+        color: 'green',
+        padding: 30,
+    },
+    statusOff: {
+        color: 'red',
         padding: 30,
     },
     subHeader: {
