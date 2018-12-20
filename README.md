@@ -5,7 +5,7 @@
 Isaax offers a public API that allows you to interface with your projects from  anywhere. All you need is an isaax account and your API key.
 
 This was created as part of Isaax's [advent calendar](https://qiita.com/advent-calendar/2018/isaax) 2018.
-You can read more about this [here](./docs/blog.md)
+You can read more about this [here](blog.md)
 
 ### Prerequisites
 
@@ -13,9 +13,9 @@ This project is built with [expo](https://github.com/expo/expo), so you will nee
 
 ### Installation
 
-'''
+```bash
 yarn install
-'''
+```
 
 ### Run
 
@@ -23,14 +23,14 @@ To run the app you will need to get your API key from Isaax.
 
 After getting the key, create a `.env` file at the root of the project, add the following and save:
 
-'''
+```bash
 ISAAX_API_KEY=<YOUR_API_KEY>
-'''
+```
 
 Then you can run the project with:
 
-'''
+```bash
 yarn start
-'''
+```
 
 This will launch the project, a QR code will be displayed in the terminal, scan the code to launch it on your device.
