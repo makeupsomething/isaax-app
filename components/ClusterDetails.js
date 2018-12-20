@@ -8,10 +8,12 @@ function OnlineIcon(props) {
     const {lastMessage} = props
     const date1 = dayjs(lastMessage);
     const date2 = dayjs();
-    if(date1.diff(date2, 'second') < 100) { 
-        return <Ionicons name='ios-checkmark-circle-outline' style={styles.icon} color='green' size={20}/>
+    if(date2.diff(date1, 'second') < 100) { 
+        return <Text style={styles.icon}>Online</Text>
+        // return <Ionicons name='ios-checkmark-circle-outline' style={styles.icon} color='green' size={20}/>
     } else {
-        return <Ionicons name='ios-close-circle-outline' style={styles.icon} color='red' size={20}/>
+        return <Text style={styles.icon}>Offline</Text>
+        // return <Ionicons name='ios-close-circle-outline' style={styles.icon} color='red' size={20}/>
     }
 
 }
@@ -85,7 +87,7 @@ function DeviceList({props}) {
                     >
                         <View style={styles.card}>
                             <Text style={styles.cardText}>{device.label}</Text>
-                            <OnlineIcon lastMessage={device.lastMessage} />
+                            <OnlineIcon lastMessage={device.lastMessageAt} />
                         </View>
                     </TouchableHighlight>
                     )
