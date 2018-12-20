@@ -5,7 +5,7 @@
 Isaax offers a public API that allows you to interface with your projects from  anywhere. All you need is an isaax account and your API key.
 
 This was created as part of Isaax's [advent calendar](https://qiita.com/advent-calendar/2018/isaax) 2018.
-You can read more about this [here](https://makeupsomething.github.io/isaax-native/)
+You can read more about this [here](./docs/blog.md)
 
 ### Prerequisites
 
