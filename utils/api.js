@@ -20,7 +20,7 @@ export function post(url) {
         },
     })
     .then((response) => {
-        return response.json();
+        return response;
     })
     .catch(error => console.error('Error:', error));
 }

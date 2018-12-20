@@ -50,31 +50,32 @@ export default class Projects extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#e9ecef',
-    marginBottom: 10,
-  },
-  headerWrapper: {
-    alignItems: 'center',
-    paddingTop: 10,
-    backgroundColor: '#e9ecef',
-  },
-  header: {
-    fontSize: 70,
-    color: 'navy'
-  },
-  card: {
-    borderTopWidth: 3,
-    backgroundColor: 'white',
-    borderColor: '#97a7c3',
-    marginTop: 10,
-    marginTop: 10,
-    marginLeft: 15,
-    marginRight: 15,
-  },
-  cardText: {
-    fontSize: 30,
-    padding: 30,
-    color: 'navy',
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#e9ecef',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingBottom: 15,
+    },
+    headerWrapper: {
+        alignItems: 'center',
+        paddingTop: 10,
+        backgroundColor: '#e9ecef',
+    },
+    header: {
+        fontSize: 70,
+        color: 'navy',
+        marginBottom: 15,
+    },
+    card: {
+        borderTopWidth: 3,
+        backgroundColor: 'white',
+        borderColor: '#97a7c3',
+        marginBottom: 15,
+    },
+    cardText: {
+        fontSize: 30,
+        padding: 30,
+        color: 'navy',
+    }
 });

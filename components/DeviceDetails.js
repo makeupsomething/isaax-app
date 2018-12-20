@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
 import * as api from '../utils/api';
 import dayjs from 'dayjs'
 
@@ -19,7 +19,7 @@ function DeviceInfo(props) {
             <Fragment>
                 <View style={styles.detailsHeader}>
                     <Text style={styles.header}>
-                        {device.label}
+                        Device: {device.label}
                     </Text>
                 </View>
                 <View style={styles.detailsCard}>
@@ -39,6 +39,18 @@ function DeviceInfo(props) {
                     {device.interfaces.map(inter => {
                         return <Text key={inter.Name} style={styles.info}>{inter.Ip}</Text>
                     })}
+
+                    <TouchableHighlight style={styles.buttonView} onPress={() => stopDevice(itemId)}>
+                        <View style={styles.buttonStop}>
+                            <Text color='white'>Stop Device</Text>
+                        </View>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.buttonView} onPress={() => startDevice(itemId)}>
+                        <View style={styles.buttonStart}>
+                            <Text color='white'>Start Device</Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
             </Fragment>
         )
@@ -47,20 +59,14 @@ function DeviceInfo(props) {
     }
 }
 
-function startDevice() {
-    const {navigation} = this.props;
-    const itemId = navigation.getParam('id');
-
+function startDevice(itemId) {
     api.post(`/devices/${itemId}/start`)
     .then((response) => {
         console.log(response)
     })
 }
 
-function stopDevice() {
-    const {navigation} = this.props;
-    const itemId = navigation.getParam('id');
-
+function stopDevice(itemId) {
     api.post(`/devices/${itemId}/stop`)
     .then((response) => {
         console.log(response)
@@ -73,26 +79,17 @@ export default function DeviceDetails(props) {
     return (
         <View style={styles.container}>
             <DeviceInfo itemId={itemId} />
-            <Button
-                onPress={startDevice}
-                title="Start Device"
-                color="green"
-            />
-            <Button
-                onPress={stopDevice}
-                title="Stop Device"
-                color="red"
-            />
         </View>
         );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: '#e9ecef',
-        marginBottom: 15,
-        marginLeft: 15,
-        marginRight: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingBottom: 15,
     },
     detailsHeader: {
         alignItems: 'center',
@@ -113,7 +110,18 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: 'bold',
     },
-    info: {},
+    buttonView: {
+        marginTop: 15,
+        width: 150,
+    },
+    buttonStop: {
+        backgroundColor: 'red',
+        padding: 15,
+    },
+    buttonStart: {
+        backgroundColor: 'green',
+        padding: 15,
+    },
     card: {
         borderTopWidth: 3,
         backgroundColor: 'white',

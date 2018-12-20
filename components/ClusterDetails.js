@@ -32,7 +32,7 @@ function ClusterInfo(props) {
             <Fragment>
                 <View style={styles.detailsHeader}>
                     <Text style={styles.header}>
-                        {cluster.title}
+                        Cluster: {cluster.title}
                     </Text>
                 </View>
                 <View style={styles.detailsCard}>
@@ -46,12 +46,13 @@ function ClusterInfo(props) {
                     <Text style={styles.info}>{dayjs(cluster.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                     <Text style={styles.label}>Updated At:</Text>
                     <Text style={styles.info}>{dayjs(cluster.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
+                
+                    <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
+                        <View style={styles.button}>
+                            <Text color='white'>Restart Application</Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
-                <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
-                    <View style={styles.button}>
-                        <Text color='white'>Restart Application</Text>
-                    </View>
-                </TouchableHighlight>
             </Fragment>
         )
     } else {
@@ -119,9 +120,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#e9ecef',
-        marginBottom: 15,
-        marginLeft: 15,
-        marginRight: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingBottom: 15,
     },
     detailsHeader: {
         alignItems: 'center',
@@ -160,7 +161,8 @@ const styles = StyleSheet.create({
       color: 'navy',
     },
     buttonView: {
-        backgroundColor: 'white',
+        marginTop: 15,
+        width: 150,
     },
     button: {
         backgroundColor: 'teal',

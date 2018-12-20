@@ -20,7 +20,7 @@ function ProjectInfo(props) {
             <Fragment>
                 <View style={styles.detailsHeader}> 
                     <Text style={styles.header}>
-                        {project.name}
+                        Project: {project.name}
                     </Text>
                 </View>
                 <View style={styles.detailsCard}>
@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#e9ecef',
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingBottom: 15,
     },
     detailsHeader: {
       alignItems: 'center',
