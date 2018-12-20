@@ -36,7 +36,7 @@ I only used two hooks `useState` and `useEffect` in this project, but just using
 
 We can see blow an example of where both hooks are used to render the list of projects.
 
-```js
+```JSX
 function ProjectList(props) {
     const {navigate} = props.navigation;
     const [projects, setProjects] = useState([]);
@@ -67,8 +67,12 @@ function ProjectList(props) {
 }
 ```
 
+#### useState
+
 `useState` aims to solve the problem of sharing state across functional components.
 We destructure `useState`, which just returns a state and a [function](https://reactjs.org/docs/hooks-reference.html#usestate) and we set it's initial value to be an empty array.
+
+#### useEffect
 
 `useEffect` adds the ability to perform side effects from a function component. It serves the same purpose as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` in React classes, but unified into a single API. So you can see here I am fetching the users using the API and then using the `setProjects` function we created earlier to save them in our state. As `useEffect` runs every render by default we add a `[]` as the second parameter. This means that we only want it to run on mount and unmount. If we wanted it to run every time our projects changed we could add `[projects]` as the second parameter.
 
