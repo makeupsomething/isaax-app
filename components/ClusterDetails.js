@@ -47,7 +47,7 @@ function ClusterInfo(props) {
                     <Text style={styles.label}>Updated At:</Text>
                     <Text style={styles.info}>{dayjs(cluster.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
                 
-                    <TouchableHighlight style={styles.buttonView} onPress={restartApplication}>
+                    <TouchableHighlight style={styles.buttonView} onPress={() => restartApplication(itemId)}>
                         <View style={styles.button}>
                             <Text color='white'>Restart Application</Text>
                         </View>
@@ -95,10 +95,7 @@ function DeviceList({props}) {
     )
 }
 
-function restartApplication(props) {
-    const {navigation} = props;
-    const itemId = navigation.getParam('id');
-
+function restartApplication(itemId) {
     api.post(`/clusters/${itemId}/reload`)
     .then((response) => {
         console.log(response)
