@@ -34,9 +34,9 @@ Hooks are a new upcoming feature in react that in theory solve a lot of problems
 
 I only used two hooks `useState` and `useEffect` in this project, but just using these two forced me into thinking about using react in a different way, without classes.
 
-We can see blow an example of where both hooks are used to render the list of projects.
+We can see below an example of where both hooks are used to render the list of projects.
 
-```JSX
+```jsx
 function ProjectList(props) {
     const {navigate} = props.navigation;
     const [projects, setProjects] = useState([]);

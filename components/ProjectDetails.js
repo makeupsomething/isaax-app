@@ -1,7 +1,11 @@
 import React, { useState, useEffect, Fragment, } from 'react'
-import { StyleSheet, Text, View, ScrollView, TouchableHighlight } from 'react-native';
+import { Text, ScrollView, TouchableHighlight } from 'react-native';
+import { HeaderWrapper, HeaderText, SubHeader } from './Header'
+import { CardWrapper, Label, Value } from './DetailsCard'
+import { ItemCardWrapper, ItemCardText } from './ItemCard'
 import * as api from '../utils/api';
 import dayjs from 'dayjs'
+import Container from './Container'
 
 function ProjectInfo(props) {
     const {itemId} = props
@@ -18,19 +22,19 @@ function ProjectInfo(props) {
     if(project) {
         return (
             <Fragment>
-                <View style={styles.detailsHeader}> 
-                    <Text style={styles.header}>
+                <HeaderWrapper backgroundColor="#97a7c3"> 
+                    <HeaderText>
                         Project: {project.name}
-                    </Text>
-                </View>
-                <View style={styles.detailsCard}>
-                    <Text style={styles.label}>Project ID:</Text>
-                    <Text style={styles.info}>{project.id}</Text>
-                    <Text style={styles.label}>Created At:</Text>
-                    <Text style={styles.info}>{dayjs(project.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
-                    <Text style={styles.label}>Repo Path::</Text>
-                    <Text style={styles.info}>{project.repoPath}</Text>
-                </View>
+                    </HeaderText>
+                </HeaderWrapper>
+                <CardWrapper>
+                    <Label>Project ID:</Label>
+                    <Value>{project.id}</Value>
+                    <Label>Created At:</Label>
+                    <Value>{dayjs(project.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
+                    <Label>Repo Path:</Label>
+                    <Value>{project.repoPath}</Value>
+                </CardWrapper>
             </Fragment>
         )
     } else {
@@ -54,7 +58,7 @@ function ClusterList({props}) {
 
     return (
         <Fragment>
-            <Text style={styles.subHeader}>Clusters</Text>
+            <SubHeader>Clusters</SubHeader>
             <ScrollView>
                 {clusters.map(cluster => {
                     return (
@@ -62,9 +66,9 @@ function ClusterList({props}) {
                         key={cluster.id}
                         onPress={() => navigate('ClusterDetails', {id: cluster.id})}
                     >
-                        <View style={styles.card}>
-                            <Text style={styles.cardText}>{cluster.title}</Text>
-                        </View>
+                        <ItemCardWrapper borderColor="#355998">
+                            <ItemCardText>{cluster.title}</ItemCardText>
+                        </ItemCardWrapper>
                     </TouchableHighlight>
                     )
                 })}
@@ -78,57 +82,9 @@ export default function ProjectDetails(props) {
     const itemId = navigation.getParam('id');
 
     return (
-        <View style={styles.container}>
+        <Container>
             <ProjectInfo itemId={itemId} />
             <ClusterList props={props} />
-        </View>
+        </Container>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#e9ecef',
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingBottom: 15,
-    },
-    detailsHeader: {
-      alignItems: 'center',
-      paddingTop: 15,
-      paddingBottom: 15,
-      backgroundColor: '#97a7c3',
-      marginTop: 15,
-    },
-    header: {
-      fontSize: 30,
-      color: 'white'
-    },
-    detailsCard: {
-        flex: 1,
-        backgroundColor: 'white',
-        padding: 15,
-        padding: 15,
-    },
-    label: {
-        fontWeight: 'bold',
-    },
-    info: {
-    },
-    subHeader: {
-        color: 'navy',
-        fontSize: 30,
-        marginTop: 15,
-    },
-    card: {
-      borderTopWidth: 3,
-      backgroundColor: 'white',
-      borderColor: '#355998',
-      marginTop: 15,
-    },
-    cardText: {
-      fontSize: 30,
-      padding: 30,
-      color: 'navy',
-    }
-  });

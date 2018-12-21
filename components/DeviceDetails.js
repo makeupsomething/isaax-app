@@ -1,6 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
-import * as api from '../utils/api';
+import { Text } from 'react-native'
+import Container from './Container'
+import { HeaderWrapper, HeaderText } from './Header'
+import { ButtonWrapper, ButtonView, ButtonText } from './ActionButton'
+import { CardWrapper, Label, Value } from './DetailsCard'
+import * as api from '../utils/api'
 import dayjs from 'dayjs'
 
 function DeviceInfo(props) {
@@ -17,41 +21,41 @@ function DeviceInfo(props) {
     if(device) {
         return (
             <Fragment>
-                <View style={styles.detailsHeader}>
-                    <Text style={styles.header}>
+                <HeaderWrapper backgroundColor="#588c95">
+                    <HeaderText>
                         Device: {device.label}
-                    </Text>
-                </View>
-                <View style={styles.detailsCard}>
-                    <Text style={styles.label}>Device ID:</Text>
-                    <Text style={styles.info}>{device.id}</Text>
-                    <Text style={styles.label}>Cluster:</Text>
-                    <Text style={styles.info}>{device.cluster.title}</Text>
-                    <Text style={styles.label}>Created At:</Text>
-                    <Text style={styles.info}>{dayjs(device.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
-                    <Text style={styles.label}>Updated At:</Text>
-                    <Text style={styles.info}>{dayjs(device.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
-                    <Text style={styles.label}>Last Message:</Text>
-                    <Text style={styles.info}>{dayjs(device.lastMessageAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
-                    <Text style={styles.label}>IsaaxD Version:</Text>
-                    <Text style={styles.info}>{device.version}</Text>
-                    <Text style={styles.label}>Interfaces:</Text>
+                    </HeaderText>
+                </HeaderWrapper>
+                <CardWrapper>
+                    <Label>Device ID:</Label>
+                    <Value>{device.id}</Value>
+                    <Label>Cluster:</Label>
+                    <Value>{device.cluster.title}</Value>
+                    <Label>Created At:</Label>
+                    <Value>{dayjs(device.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
+                    <Label>Updated At:</Label>
+                    <Value>{dayjs(device.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
+                    <Label>Last Message:</Label>
+                    <Value>{dayjs(device.lastMessageAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
+                    <Label>IsaaxD Version:</Label>
+                    <Value>{device.version}</Value>
+                    <Label>Interfaces:</Label>
                     {device.interfaces.map(inter => {
-                        return <Text key={inter.Name} style={styles.info}>{inter.Ip}</Text>
+                        return <Value key={inter.Name}>{inter.Ip}</Value>
                     })}
 
-                    <TouchableHighlight style={styles.buttonView} onPress={() => stopDevice(itemId)}>
-                        <View style={styles.buttonStop}>
-                            <Text color='white'>Stop Device</Text>
-                        </View>
-                    </TouchableHighlight>
+                    <ButtonWrapper onPress={() => stopDevice(itemId)}>
+                        <ButtonView backgroundColor='red'>
+                            <ButtonText>Stop Device</ButtonText>
+                        </ButtonView>
+                    </ButtonWrapper>
 
-                    <TouchableHighlight style={styles.buttonView} onPress={() => startDevice(itemId)}>
-                        <View style={styles.buttonStart}>
-                            <Text color='white'>Start Device</Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                    <ButtonWrapper onPress={() => startDevice(itemId)}>
+                        <ButtonView backgroundColor='green'>
+                            <ButtonText>Start Device</ButtonText>
+                        </ButtonView>
+                    </ButtonWrapper>
+                </CardWrapper>
             </Fragment>
         )
     } else {
@@ -77,69 +81,9 @@ export default function DeviceDetails(props) {
     const {navigation} = props;
     const itemId = navigation.getParam('id');
     return (
-        <View style={styles.container}>
+        <Container>
             <DeviceInfo itemId={itemId} />
-        </View>
+        </Container>
         );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#e9ecef',
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingBottom: 15,
-    },
-    detailsHeader: {
-        alignItems: 'center',
-        paddingTop: 15,
-        paddingBottom: 15,
-        backgroundColor: '#588c95',
-        marginTop: 15,
-    },
-    header: {
-        fontSize: 30,
-        color: 'white'
-    },
-    detailsCard: {
-        backgroundColor: 'white',
-        padding: 15,
-        padding: 15,
-    },
-    label: {
-        fontWeight: 'bold',
-    },
-    buttonView: {
-        marginTop: 15,
-        width: 150,
-    },
-    buttonStop: {
-        backgroundColor: 'red',
-        padding: 15,
-    },
-    buttonStart: {
-        backgroundColor: 'green',
-        padding: 15,
-    },
-    card: {
-        borderTopWidth: 3,
-        backgroundColor: 'white',
-        borderColor: '#355998',
-        marginTop: 10,
-        marginTop: 10,
-        marginLeft: 15,
-        marginRight: 15,
-    },
-    cardText: {
-        fontSize: 30,
-        padding: 30,
-        color: 'navy',
-    },
-    subHeader: {
-        color: 'navy',
-        fontSize: 30,
-        marginTop: 15,
-    }
-  });
   

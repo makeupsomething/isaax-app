@@ -1,6 +1,10 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { StyleSheet, Text, View, ScrollView, TouchableHighlight, Button } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Text, ScrollView, TouchableHighlight } from 'react-native';
+import Container from './Container'
+import { HeaderWrapper, HeaderText, SubHeader } from './Header'
+import { ButtonWrapper, ButtonView, ButtonText } from './ActionButton'
+import { CardWrapper, Label, Value } from './DetailsCard'
+import { ItemCardWrapper, ItemCardText, StatusText } from './ItemCard'
 import * as api from '../utils/api';
 import dayjs from 'dayjs'
 
@@ -9,9 +13,9 @@ function OnlineIcon(props) {
     const date1 = dayjs(lastMessage);
     const date2 = dayjs();
     if(date2.diff(date1, 'second') < 100) { 
-        return <Text style={styles.statusOn}>Online</Text>
+        return <StatusText color="green">Online</StatusText>
     } else {
-        return <Text style={styles.statusOff}>Offline</Text>
+        return <StatusText color="red">Offline</StatusText>
     }
 
 }
@@ -30,29 +34,29 @@ function ClusterInfo(props) {
     if(cluster) {
         return (
             <Fragment>
-                <View style={styles.detailsHeader}>
-                    <Text style={styles.header}>
+                <HeaderWrapper backgroundColor="#355998">
+                    <HeaderText>
                         Cluster: {cluster.title}
-                    </Text>
-                </View>
-                <View style={styles.detailsCard}>
-                    <Text style={styles.label}>Cluster ID:</Text>
-                    <Text style={styles.info}>{cluster.id}</Text>
-                    <Text style={styles.label}>Branch:</Text>
-                    <Text style={styles.info}>{cluster.branch}</Text>
-                    <Text style={styles.label}>Revision:</Text>
-                    <Text style={styles.info}>{cluster.revision}</Text>
-                    <Text style={styles.label}>Created At:</Text>
-                    <Text style={styles.info}>{dayjs(cluster.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
-                    <Text style={styles.label}>Updated At:</Text>
-                    <Text style={styles.info}>{dayjs(cluster.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Text>
+                    </HeaderText>
+                </HeaderWrapper>
+                <CardWrapper>
+                    <Label>Cluster ID:</Label>
+                    <Value>{cluster.id}</Value>
+                    <Label>Branch:</Label>
+                    <Value>{cluster.branch}</Value>
+                    <Label>Revision:</Label>
+                    <Value>{cluster.revision}</Value>
+                    <Label>Created At:</Label>
+                    <Value>{dayjs(cluster.createdAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
+                    <Label>Updated At:</Label>
+                    <Value>{dayjs(cluster.updatedAt).format('DD/MM/YYYY hh:mm:ss')}</Value>
                 
-                    <TouchableHighlight style={styles.buttonView} onPress={() => restartApplication(itemId)}>
-                        <View style={styles.button}>
-                            <Text color='white'>Restart Application</Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                    <ButtonWrapper onPress={() => restartApplication(itemId)}>
+                        <ButtonView>
+                            <ButtonText>Restart Application</ButtonText>
+                        </ButtonView>
+                    </ButtonWrapper>
+                </CardWrapper>
             </Fragment>
         )
     } else {
@@ -75,7 +79,7 @@ function DeviceList({props}) {
 
     return (
         <Fragment>
-            <Text style={styles.subHeader}>Devices</Text>
+            <SubHeader>Devices</SubHeader>
             <ScrollView>
                 {devices.list ? devices.list.map(device => {
                     return (
@@ -83,10 +87,10 @@ function DeviceList({props}) {
                         key={device.id}
                         onPress={() => navigate('DeviceDetails', {id: device.id})}
                     >
-                        <View style={styles.card}>
-                            <Text style={styles.cardText}>{device.label}</Text>
+                        <ItemCardWrapper>
+                            <ItemCardText>{device.label}</ItemCardText>
                             <OnlineIcon lastMessage={device.lastMessageAt} />
-                        </View>
+                        </ItemCardWrapper>
                     </TouchableHighlight>
                     )
                 }) : null}
@@ -106,77 +110,10 @@ export default function ClusterDetails(props) {
     const {navigation} = props;
     const itemId = navigation.getParam('id');
     return (
-        <View style={styles.container}>
+        <Container>
             <ClusterInfo itemId={itemId} />
             <DeviceList props={props} />
-        </View>
+        </Container>
         );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#e9ecef',
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingBottom: 15,
-    },
-    detailsHeader: {
-        alignItems: 'center',
-        paddingTop: 15,
-        paddingBottom: 15,
-        backgroundColor: '#355998',
-        marginTop: 15,
-      },
-      header: {
-        fontSize: 30,
-        color: 'white'
-      },
-      detailsCard: {
-          backgroundColor: 'white',
-          padding: 15,
-          padding: 15,
-      },
-      label: {
-          fontWeight: 'bold',
-      },
-      info: {
-      },
-    card: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderTopWidth: 3,
-        backgroundColor: 'white',
-        borderColor: '#588c95',
-        marginTop: 15,
-    },
-    cardText: {
-      fontSize: 30,
-      padding: 30,
-      color: 'navy',
-    },
-    buttonView: {
-        marginTop: 15,
-        width: 150,
-    },
-    button: {
-        backgroundColor: 'teal',
-        padding: 15,
-    },
-    statusOn: {
-        color: 'green',
-        padding: 30,
-    },
-    statusOff: {
-        color: 'red',
-        padding: 30,
-    },
-    subHeader: {
-        color: 'navy',
-        fontSize: 30,
-        marginTop: 15,
-    }
-  });
   
