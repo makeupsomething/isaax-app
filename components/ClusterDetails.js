@@ -87,7 +87,7 @@ function DeviceList({props}) {
                         key={device.id}
                         onPress={() => navigate('DeviceDetails', {id: device.id})}
                     >
-                        <ItemCardWrapper>
+                        <ItemCardWrapper borderColor="#588c95">
                             <ItemCardText>{device.label}</ItemCardText>
                             <OnlineIcon lastMessage={device.lastMessageAt} />
                         </ItemCardWrapper>

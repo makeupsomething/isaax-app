@@ -78,6 +78,10 @@ We destructure `useState`, which just returns a state and a [function](https://r
 
 ## Results
 
+Here we can see a gif of the app. We navigate to a device and stop then start the application on the device.
+
+![isaaxd log when stopping application](./images/isaax-native.gif)
+
 So what actually happens on the device when we issue commands. We can check the logs on the device to see the output. Isaaxd logs are found at `/var/logs/isaaxd.log`
 
 Stop

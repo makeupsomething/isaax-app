@@ -10,5 +10,10 @@ export const ButtonView = styled.View`
 `
 
 export const ButtonText = styled.Text`
+    font-size: 20;
     color: white;
+    padding-top: 15;
+    padding-bottom: 15;
+    padding-left: 15;
+    padding-right: 15;
 `

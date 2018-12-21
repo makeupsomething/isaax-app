@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { Text } from 'react-native'
 import Container from './Container'
-import { HeaderWrapper, HeaderText } from './Header'
+import { HeaderWrapper, HeaderText, InformationBar, InformationBarText } from './Header'
 import { ButtonWrapper, ButtonView, ButtonText } from './ActionButton'
 import { CardWrapper, Label, Value } from './DetailsCard'
 import * as api from '../utils/api'
@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 function DeviceInfo(props) {
     const {itemId} = props
     const [device, setDevice] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         api.get(`/devices/${itemId}`)
@@ -26,6 +27,7 @@ function DeviceInfo(props) {
                         Device: {device.label}
                     </HeaderText>
                 </HeaderWrapper>
+                {loading ? <LoadingInformation action={loading} /> : null}
                 <CardWrapper>
                     <Label>Device ID:</Label>
                     <Value>{device.id}</Value>
@@ -43,18 +45,18 @@ function DeviceInfo(props) {
                     {device.interfaces.map(inter => {
                         return <Value key={inter.Name}>{inter.Ip}</Value>
                     })}
-
-                    <ButtonWrapper onPress={() => stopDevice(itemId)}>
+                    <ButtonWrapper onPress={() => stopDevice(itemId, setLoading)}>
                         <ButtonView backgroundColor='red'>
                             <ButtonText>Stop Device</ButtonText>
                         </ButtonView>
                     </ButtonWrapper>
 
-                    <ButtonWrapper onPress={() => startDevice(itemId)}>
+                    <ButtonWrapper onPress={() => startDevice(itemId, setLoading)}>
                         <ButtonView backgroundColor='green'>
                             <ButtonText>Start Device</ButtonText>
                         </ButtonView>
                     </ButtonWrapper>
+                    
                 </CardWrapper>
             </Fragment>
         )
@@ -63,17 +65,28 @@ function DeviceInfo(props) {
     }
 }
 
-function startDevice(itemId) {
+function LoadingInformation({action}) {
+    console.log(action)
+    return (
+        <InformationBar>
+            <InformationBarText>{action} application</InformationBarText>
+        </InformationBar>
+    )
+}
+
+function startDevice(itemId, setLoading) {
+    setLoading("starting")
     api.post(`/devices/${itemId}/start`)
-    .then((response) => {
-        console.log(response)
+    .then(() => {
+        setTimeout(() => { setLoading(false) }, 3000);
     })
 }
 
-function stopDevice(itemId) {
+function stopDevice(itemId, setLoading) {
+    setLoading("stopping")
     api.post(`/devices/${itemId}/stop`)
-    .then((response) => {
-        console.log(response)
+    .then(() => {
+        setTimeout(() => { setLoading(false) }, 3000);
     })
 }
 
